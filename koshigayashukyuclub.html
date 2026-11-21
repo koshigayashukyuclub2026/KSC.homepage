@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>越谷蹴球俱楽部 | KOSHIGAYA SHUKYU CLUB 公式Webサイト</title>
+    <meta name="description" content="地元に根付いたサッカーチームをモットーとした越谷蹴球俱楽部（KOSHIGAYA SHUKYU CLUB）の公式サイト。埼玉県東部地区南部リーグ所属予定、県リーグ昇格を目指して活動中。新メンバー・マネージャー募集中！">
+    
+    <!-- Google Fonts: Oswald (英語見出し) & Noto Sans JP (日本語本文) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        club: {
+                            black: '#0A0A0C',
+                            dark: '#121216',
+                            card: '#18181E',
+                            border: '#2A2A35',
+                            red: '#D91E2A',
+                            crimson: '#E60012',
+                            redDark: '#8F1119'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        display: ['"Oswald"', '"Noto Sans JP"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #0A0A0C;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        /* カスタム背景パターン（水郷こしがやの川波＆幾何学ライン） */
+        .bg-river-pattern {
+            background-image: radial-gradient(circle at 50% 0%, rgba(217, 30, 42, 0.16) 0%, transparent 60%),
+                              linear-gradient(to bottom, rgba(10, 10, 12, 0.7), #0A0A0C);
+        }
+
+        .wave-divider {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='24' viewBox='0 0 120 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 12 Q 30 2, 60 12 T 120 12' fill='none' stroke='%23D91E2A' stroke-width='1.5' stroke-opacity='0.25'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+        }
+
+        /* テキスト・エンブレムのグロー効果 */
+        .emblem-glow {
+            filter: drop-shadow(0 0 28px rgba(217, 30, 42, 0.45));
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+        }
+        .emblem-glow:hover {
+            transform: translateY(-4px) scale(1.02);
+            filter: drop-shadow(0 0 38px rgba(230, 0, 18, 0.65));
+        }
+
+        /* スクロール連動フェードインアニメーション */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 斜めカットのアクセント装飾 */
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 96% 100%, 0% 100%);
+        }
+
+        /* メタリックシルバー＆立体文字スタイル */
+        .silver-3d {
+            background: linear-gradient(180deg, #FFFFFF 0%, #E5E7EB 38%, #9CA3AF 72%, #F3F4F6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.95))
+                    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
+        }
+
+        /* ヒーローセクション背景エンブレム（白背景を溶かし込み、ダーク背景と一体化させる処理） */
+        .hero-emblem-backdrop {
+            background-image: url('S__53755910_3.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            /* 白い外周部分を背景色と馴染ませる放射状マスク＆ブレンド */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0) 70%);
+            mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0) 70%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-club-red selection:text-white">
+
+    <!-- ==================== HEADER / NAVIGATION ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-club-black/85 backdrop-blur-md border-b border-club-border/70">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+            <!-- ロゴエリア（クリーンなバッジ＆テキスト構成） -->
+            <a href="#top" class="flex items-center gap-3 group">
+                <img src="S__53821451.jpg" alt="越谷蹴球俱楽部エンブレム" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-club-border/50 group-hover:border-club-red/70 transotion-all shadow-lg shadow-club-red/25">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-lg sm:text-xl tracking-wider silver-3d leading-none">
+                        KOSHIGAYA SHUKYU CLUB
+                    </span>
+                    <span class="text-[11px] sm:text-xs font-bold tracking-widest text-gray-400 mt-0.5">
+                        越谷蹴球俱楽部
+                    </span>
+                </div>
+            </a>
+
+            <!-- PC用ナビゲーション -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#about" class="font-display text-sm tracking-widest text-gray-300 hover:text-club-red transition-colors">ABOUT</a>
+                <a href="#activity" class="font-display text-sm tracking-widest text-gray-300 hover:text-club-red transition-colors">ACTIVITY</a>
+                <a href="#schedule" class="font-display text-sm tracking-widest text-gray-300 hover:text-club-red transition-colors">SCHEDULE</a>
+                <a href="#recruit" class="px-5 py-2.5 bg-club-red hover:bg-club-crimson text-white text-xs font-bold tracking-wider rounded transition-all shadow-lg shadow-club-red/25">
+                    RECRUIT &amp; CONTACT
+                </a>
+            </nav>
+
+            <!-- モバイル用ハンバーガーボタン -->
+            <button id="mobile-menu-btn" type="button" aria-label="メニューを開く" class="md:hidden p-2.5 text-gray-200 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- モバイル用ドロワーメニュー -->
+        <div id="mobile-menu" class="hidden md:hidden bg-club-dark border-b border-club-border px-4 pt-3 pb-6 space-y-2">
+            <a href="#about" class="mobile-nav-link block px-3 py-3 rounded-lg font-display tracking-widest text-base text-gray-200 hover:bg-club-card hover:text-club-red">
+                ABOUT <span class="text-xs font-sans text-gray-400 ml-2">チーム紹介</span>
+            </a>
+            <a href="#activity" class="mobile-nav-link block px-3 py-3 rounded-lg font-display tracking-widest text-base text-gray-200 hover:bg-club-card hover:text-club-red">
+                ACTIVITY <span class="text-xs font-sans text-gray-400 ml-2">活動概要</span>
+            </a>
+            <a href="#schedule" class="mobile-nav-link block px-3 py-3 rounded-lg font-display tracking-widest text-base text-gray-200 hover:bg-club-card hover:text-club-red">
+                SCHEDULE <span class="text-xs font-sans text-gray-400 ml-2">活動予定・お知らせ</span>
+            </a>
+            <div class="pt-2">
+                <a href="#recruit" class="mobile-nav-link block w-full text-center py-3.5 bg-club-red hover:bg-club-crimson text-white font-bold text-sm rounded-lg shadow-md">
+                    メンバー募集・お問い合わせ
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="top" class="relative min-h-screen pt-24 pb-16 sm:pt-32 sm:pb-24 flex items-center justify-center bg-club-black overflow-hidden">
+        <!-- 全面背景エンブレム・バックドロップ -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+            <div class="w-[115vw] max-w-[680px] sm:max-w-[780px] aspect-square hero-emblem-backdrop opacity-45 sm:opacity-50 scale-105 transition-transform duration-1000"></div>
+        </div>
+
+        <!-- テキストの視認性を高める放射状ビネット＆上下ダークグラデーション -->
+        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at center, rgba(10, 10, 12, 0.35) 0%, rgba(10, 10, 12, 0.82) 55%, #0A0A0C 85%);"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-club-black/75 via-transparent to-club-black pointer-events-none"></div>
+
+        <!-- 背景の幾何学ライン＆ウォーターウェーブ装飾 -->
+        <div class="absolute inset-0 pointer-events-none opacity-20">
+            <svg class="w-full h-full" viewBox="0 0 1440 800" preserveAspectRatio="none">
+                <path d="M-100 620 C 320 500, 580 740, 1020 580 C 1250 500, 1400 560, 1540 520" fill="none" stroke="#D91E2A" stroke-width="2"/>
+                <path d="M-100 660 C 360 540, 620 780, 1060 620 C 1280 540, 1420 600, 1540 560" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-dasharray="6 6"/>
+                <line x1="0" y1="0" x2="1440" y2="800" stroke="#D91E2A" stroke-width="0.5"/>
+                <line x1="1440" y1="0" x2="0" y2="800" stroke="#FFFFFF" stroke-width="0.3"/>
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+            <!-- 地域・ステータスバッジ -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-club-black/80 backdrop-blur-sm border border-club-red/50 text-xs sm:text-sm font-bold tracking-wider text-gray-200 mb-8 sm:mb-10 shadow-lg">
+                <span class="w-2 h-2 rounded-full bg-club-crimson animate-pulse"></span>
+                SAITAMA KOSHIGAYA / 埼玉県東部地区南部リーグ所属予定
+            </div>
+
+            <!-- クラブタイトル（背景エンブレムの上に立体シルバーで堂々と配置） -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-wider silver-3d mb-3 py-1">
+                越谷蹴球俱楽部
+            </h1>
+            <p class="font-display text-xl sm:text-3xl font-bold tracking-[0.25em] text-club-red drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] mb-6 sm:mb-8">
+                KOSHIGAYA SHUKYU CLUB
+            </p>
+            <p class="max-w-xl text-sm sm:text-base text-gray-200 font-medium leading-relaxed mb-9 sm:mb-11 px-3 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
+                地元・越谷に根付く次世代フットボールクラブ。<br class="hidden sm:inline">
+                埼玉県東部地区南部リーグから、さらなる高み「県リーグ所属」へ挑む。
+            </p>
+
+            <!-- CTAボタン -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto px-4 sm:px-0">
+                <a href="#recruit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-club-red hover:bg-club-crimson text-white font-bold text-sm sm:text-base rounded-lg shadow-xl shadow-club-red/35 transition-all transform hover:-translate-y-0.5">
+                    <span>メンバー募集・お問い合わせ</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#about" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-club-black/80 hover:bg-club-card backdrop-blur-sm border border-club-border text-gray-200 font-bold text-sm sm:text-base rounded-lg transition-all">
+                    <span>クラブについて知る</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="h-6 wave-divider"></div>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="py-20 sm:py-28 bg-club-black relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- セクション見出し -->
+            <div class="reveal mb-12 sm:mb-16">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-8 h-1 bg-club-red rounded-full"></span>
+                    <span class="font-display text-sm sm:text-base font-bold tracking-[0.2em] text-club-red">ABOUT US</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-wide silver-3d inline-block py-1">
+                    チーム紹介
+                </h2>
+            </div>
+
+            <!-- リード文 -->
+            <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-10 mb-10 sm:mb-12 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-club-red"></div>
+                <p class="text-base sm:text-xl font-bold text-white leading-relaxed mb-4">
+                    「地元に根付いたサッカーチーム」をモットーとした、年代若めのサッカーチームです。
+                </p>
+                <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                    越谷蹴球俱楽部は、越谷市を中心に活動する若手世代主体のフットボールクラブです。
+                    <strong class="text-white font-bold">埼玉県東部地区南部リーグ</strong>に所属予定で、一戦一戦を全力で戦い抜き、目標である<strong class="text-club-red font-bold">「埼玉県リーグ所属」</strong>を目指して日々トレーニングに励んでいます。
+                </p>
+            </div>
+
+            <!-- 3つの柱 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Pillar 1 -->
+                <div class="reveal bg-club-dark border border-club-border hover:border-club-red/60 rounded-xl p-6 sm:p-7 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-club-red/15 border border-club-red/30 flex items-center justify-center text-club-red mb-5 group-hover:bg-club-red group-hover:text-white transition-colors">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-xs tracking-widest text-club-red block mb-1">01 / ROOTED IN KOSHIGAYA</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-3">地元・越谷に根付く</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        越谷の街とともに成長し、地域から応援され、愛されるフットボールクラブを目指しています。
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="reveal bg-club-dark border border-club-border hover:border-club-red/60 rounded-xl p-6 sm:p-7 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-club-red/15 border border-club-red/30 flex items-center justify-center text-club-red mb-5 group-hover:bg-club-red group-hover:text-white transition-colors">
+                        <i data-lucide="flame" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-xs tracking-widest text-club-red block mb-1">02 / YOUNG &amp; DYNAMIC</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-3">若さとチームの一体感</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        年代若めのメンバーが中心となり、ピッチ内外で活気あふれるコミュニケーションとハードワークを体現します。
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="reveal bg-club-dark border border-club-border hover:border-club-red/60 rounded-xl p-6 sm:p-7 transition-all group">
+                    <div class="w-12 h-12 rounded-lg bg-club-red/15 border border-club-red/30 flex items-center justify-center text-club-red mb-5 group-hover:bg-club-red group-hover:text-white transition-colors">
+                        <i data-lucide="trophy" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-display text-xs tracking-widest text-club-red block mb-1">03 / ROAD TO PREFECTURAL LEAGUE</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-3">県リーグ昇格への挑戦</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        埼玉県東部地区南部リーグ所属予定を足がかりに、チーム一丸となって埼玉県リーグ昇格という目標に挑みます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ACTIVITY SECTION ==================== -->
+    <section id="activity" class="py-20 sm:py-28 bg-club-dark border-y border-club-border/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- セクション見出し -->
+            <div class="reveal mb-12 sm:mb-16">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-8 h-1 bg-club-red rounded-full"></span>
+                    <span class="font-display text-sm sm:text-base font-bold tracking-[0.2em] text-club-red">ACTIVITY</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-wide silver-3d inline-block py-1">
+                    活動概要
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 所属リーグ -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-club-red mb-4">
+                            <i data-lucide="shield" class="w-6 h-6"></i>
+                            <span class="font-display text-sm font-bold tracking-widest">LEAGUE</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-400 mb-2">所属リーグ</h3>
+                        <p class="text-xl sm:text-2xl font-black text-white leading-snug mb-3">
+                            埼玉県東部地区南部リーグ（予定）
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-club-border/80">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-club-red bg-club-red/10 px-3 py-1.5 rounded">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            目標：埼玉県リーグ昇格
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 練習日時 -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-club-red mb-4">
+                            <i data-lucide="calendar-clock" class="w-6 h-6"></i>
+                            <span class="font-display text-sm font-bold tracking-widest">PRACTICE TIME</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-400 mb-2">練習日時</h3>
+                        <p class="text-xl sm:text-2xl font-black text-white leading-snug mb-3">
+                            土日の夜（予定）
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-club-border/80">
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                            ※基本的にリーグ戦のない月の土日の夜に練習を予定しています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 主な活動場所 -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-club-red mb-4">
+                            <i data-lucide="navigation" class="w-6 h-6"></i>
+                            <span class="font-display text-sm font-bold tracking-widest">GROUNDS</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-400 mb-3">主な活動場所</h3>
+                        <ul class="space-y-2.5 text-base sm:text-lg font-bold text-white">
+                            <li class="flex items-center gap-2.5">
+                                <span class="w-2 h-2 rounded-full bg-club-red flex-shrink-0"></span>
+                                富士中学校グラウンド
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <span class="w-2 h-2 rounded-full bg-club-red flex-shrink-0"></span>
+                                しらこばと第二グラウンド
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <span class="w-2 h-2 rounded-full bg-club-red flex-shrink-0"></span>
+                                三郷スカイパーク などを予定
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-club-border/80">
+                        <p class="text-xs text-gray-400">
+                            越谷市および近隣エリアのグラウンドを中心に活動
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCHEDULE / NEWS SECTION ==================== -->
+    <section id="schedule" class="py-20 sm:py-28 bg-club-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <!-- セクション見出し -->
+            <div class="reveal mb-10 sm:mb-12 flex flex-col items-center">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-6 h-1 bg-club-red rounded-full"></span>
+                    <span class="font-display text-sm sm:text-base font-bold tracking-[0.2em] text-club-red">SCHEDULE &amp; NEWS</span>
+                    <span class="w-6 h-1 bg-club-red rounded-full"></span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-wide silver-3d inline-block py-1">
+                    活動予定・お知らせ
+                </h2>
+            </div>
+
+            <!-- Coming Soon カード -->
+            <div class="reveal bg-club-card border border-club-border rounded-2xl p-10 sm:p-16 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-club-red/10 via-transparent to-transparent pointer-events-none"></div>
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-club-dark border border-club-border text-xs font-display tracking-widest text-gray-400 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-club-red animate-ping"></span>
+                        PREPARING
+                    </div>
+                    <p class="font-display text-4xl sm:text-6xl font-bold tracking-widest silver-3d mb-4 py-1">
+                        Coming Soon
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-400 max-w-md leading-relaxed">
+                        今後の練習日程や公式戦スケジュールは決定次第、当サイトおよび公式Instagram（<a href="https://www.instagram.com/shukyuclub?lqvp=NnN3dHhqYWtreDFh&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-club-red hover:underline font-bold">@SHUKYUCLUB</a>）にて随時公開いたします。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RECRUIT & CONTACT SECTION ==================== -->
+    <section id="recruit" class="py-20 sm:py-28 bg-club-dark border-t border-club-border/60 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <!-- セクション見出し -->
+            <div class="reveal mb-12 sm:mb-16">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-8 h-1 bg-club-red rounded-full"></span>
+                    <span class="font-display text-sm sm:text-base font-bold tracking-[0.2em] text-club-red">RECRUIT &amp; CONTACT</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-wide silver-3d inline-block py-1 mb-3">
+                    メンバー募集・お問い合わせ
+                </h2>
+                <p class="text-base sm:text-lg text-gray-300 font-medium">
+                    越谷蹴球俱楽部では、一緒に戦う新メンバーをどしどし募集中です！
+                </p>
+            </div>
+
+            <!-- 募集カテゴリーカード（プレイヤー / 女性プレイヤー / マネージャー） -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 sm:mb-12">
+                <!-- プレイヤー募集 -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+                    <div class="w-10 h-1 bg-club-red mb-5"></div>
+                    <span class="font-display text-xs tracking-widest text-club-red font-bold">PLAYER</span>
+                    <h3 class="text-xl font-black silver-3d mt-1 mb-3">プレイヤー募集</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        埼玉県リーグ昇格に向けて共に戦う選手を募集中！若手メンバーやブランク明けの方も大歓迎です。まずは練習参加からお気軽にお越しください。
+                    </p>
+                </div>
+
+                <!-- 女性プレイヤー（練習参加） -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+                    <div class="w-10 h-1 bg-club-red mb-5"></div>
+                    <span class="font-display text-xs tracking-widest text-club-red font-bold">WOMEN'S PLAYER</span>
+                    <h3 class="text-xl font-black silver-3d mt-1 mb-3">女性プレイヤー（練習参加）</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        公式戦（リーグ戦）への出場はできませんが、<strong class="text-white">日々の練習への参加は大歓迎</strong>です！一緒にボールを蹴りたい方はぜひご連絡ください。
+                    </p>
+                </div>
+
+                <!-- マネージャー募集（独立） -->
+                <div class="reveal bg-club-card border border-club-border rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+                    <div class="w-10 h-1 bg-club-red mb-5"></div>
+                    <span class="font-display text-xs tracking-widest text-club-red font-bold">MANAGER</span>
+                    <h3 class="text-xl font-black silver-3d mt-1 mb-3">マネージャー募集</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        ピッチ内外でチームを支えてくれる<strong class="text-white">マネージャーも募集中</strong>です！サッカー経験や知識は問いません。一緒にチームを盛り上げてくれる方をお待ちしています。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 小見出し：練習試合・協賛について（独立セクション） -->
+            <div class="reveal mb-12 sm:mb-16">
+                <div class="flex items-center gap-2.5 mb-4">
+                    <span class="w-1.5 h-6 bg-club-red rounded-full"></span>
+                    <h3 class="text-lg sm:text-2xl font-black tracking-wide silver-3d">
+                        練習試合・協賛について
+                    </h3>
+                    <span class="font-display text-xs sm:text-sm font-bold tracking-widest text-gray-400 ml-1">
+                        MATCH &amp; SPONSOR
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 練習試合のお申し込み -->
+                    <div class="bg-club-card border border-club-border rounded-2xl p-6 sm:p-7 flex items-start gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-club-red/15 border border-club-red/30 flex items-center justify-center text-club-red flex-shrink-0 mt-0.5">
+                            <i data-lucide="swords" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-base sm:text-lg font-black text-white mb-1.5">
+                                練習試合（TM）のお申し込み
+                            </h4>
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                                対戦相手を募集しております。ご希望の日程・会場・時間帯などを添えて、下記のInstagram DMまたはGmailまでお気軽にご連絡ください。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 協賛・パートナーシップ -->
+                    <div class="bg-club-card border border-club-border rounded-2xl p-6 sm:p-7 flex items-start gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-club-red/15 border border-club-red/30 flex items-center justify-center text-club-red flex-shrink-0 mt-0.5">
+                            <i data-lucide="handshake" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-base sm:text-lg font-black text-white mb-1.5">
+                                ご協賛・サポートについて
+                            </h4>
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                                地元・越谷から埼玉県リーグ昇格を目指す当クラブの活動を応援してくださる企業様・個人様からのご協賛も、DMまたはGmailにて受け付けております。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 応募・連絡先アクションエリア（Instagram & Gmail ※QRコード削除済み） -->
+            <div class="reveal bg-club-black border border-club-red/40 rounded-2xl p-6 sm:p-10 shadow-2xl">
+                <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+                    <h3 class="text-xl sm:text-2xl font-black silver-3d inline-block mb-2">
+                        応募・お問い合わせ方法
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-300">
+                        公式InstagramのDM、またはクラブ公式Gmailよりお気軽にご連絡ください！
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                    <!-- Instagram カード（QRコード削除・ダイレクトボタン） -->
+                    <div class="bg-club-card border border-club-border rounded-xl p-6 sm:p-8 flex flex-col justify-between">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#833AB4] via-[#FD1D1D] to-[#F77737] flex items-center justify-center text-white shadow-md">
+                                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <span class="inline-block px-2 py-0.5 rounded bg-pink-500/15 text-pink-400 text-[11px] font-bold">
+                                        公式Instagram DM
+                                    </span>
+                                    <h4 class="text-lg sm:text-xl font-black text-white leading-tight">
+                                        @SHUKYUCLUB
+                                    </h4>
+                                </div>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                                普段の活動の様子も発信中！InstagramのDMから「練習参加希望」「マネージャー希望」「練習試合・協賛の相談」など一言お送りください。
+                            </p>
+                        </div>
+
+                        <a href="https://www.instagram.com/shukyuclub?lqvp=NnN3dHhqYWtreDFh&utm_source=qr" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-lg font-bold text-sm sm:text-base text-white bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-95 transition-opacity shadow-lg">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                            <span>Instagramを開いてDMを送る</span>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Gmail カード -->
+                    <div class="bg-club-card border border-club-border rounded-xl p-6 sm:p-8 flex flex-col justify-between">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-club-red/20 border border-club-red/40 flex items-center justify-center text-club-red">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <span class="inline-block px-2 py-0.5 rounded bg-club-red/20 text-club-red text-[11px] font-bold">
+                                        公式Gmailアドレス
+                                    </span>
+                                    <h4 class="text-lg sm:text-xl font-black text-white leading-tight">
+                                        メールでの応募・お問い合わせ
+                                    </h4>
+                                </div>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
+                                メンバー応募・練習試合のお申し込み・ご協賛のご相談は、下記のメールアドレスでも受け付けております。
+                            </p>
+
+                            <!-- メールアドレス表示＆ワンクリックコピーボックス -->
+                            <div class="flex items-center justify-between gap-2 bg-club-dark border border-club-border rounded-lg p-3 sm:p-3.5">
+                                <span id="club-email-text" class="text-xs sm:text-sm font-mono font-bold text-white truncate select-all">
+                                    koshigayashukyuclub2026@gmail.com
+                                </span>
+                                <button type="button" id="copy-email-btn" class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-club-card hover:bg-club-border text-xs font-bold text-gray-200 transition-colors border border-club-border">
+                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    <span id="copy-btn-label">コピー</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <a href="mailto:koshigayashukyuclub2026@gmail.com?subject=%E3%80%90%E8%B6%8A%E8%B0%B7%E8%B9%B4%E7%90%83%E5%80%B6%E6%A5%BD%E9%83%A8%E3%80%91%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%BB%E5%BF%9C%E5%8B%9F" class="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-lg font-bold text-sm sm:text-base text-white bg-club-red hover:bg-club-crimson transition-colors shadow-lg shadow-club-red/20">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                            <span>メールアプリを起動して送る</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-club-black border-t border-club-border py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-center sm:text-left">
+                <p class="font-display font-bold text-lg tracking-wider text-white">
+                    KOSHIGAYA SHUKYU CLUB
+                </p>
+                <p class="text-xs text-gray-400 mt-0.5">
+                    越谷蹴球俱楽部 ｜ 埼玉県越谷市
+                </p>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <a href="https://www.instagram.com/shukyuclub?lqvp=NnN3dHhqYWtreDFh&utm_source=qr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-gray-300 hover:text-club-red transition-colors">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                    <span>@SHUKYUCLUB</span>
+                </a>
+                <a href="#top" class="inline-flex items-center gap-1 text-xs font-display tracking-widest text-gray-400 hover:text-white transition-colors">
+                    <span>PAGE TOP</span>
+                    <i data-lucide="chevron-up" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 mt-8 pt-6 border-t border-club-border/40 text-center">
+            <p class="text-xs text-gray-500">
+                &copy; 2026 KOSHIGAYA SHUKYU CLUB / 越谷蹴球俱楽部. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- コピー完了通知トースト -->
+    <div id="toast-message" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-3">
+        <div class="flex items-center gap-2 bg-white text-club-black font-bold text-xs sm:text-sm px-5 py-3 rounded-full shadow-2xl border border-gray-200">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-club-red"></i>
+            <span>メールアドレスをコピーしました！</span>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lucideアイコン初期化
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            // 1. モバイルハンバーガーメニュー制御
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+
+            // 2. Gmailアドレスのワンクリックコピー機能（iFrame環境対応のexecCommand使用）
+            const copyBtn = document.getElementById('copy-email-btn');
+            const copyBtnLabel = document.getElementById('copy-btn-label');
+            const toast = document.getElementById('toast-message');
+            const emailAddress = 'koshigayashukyuclub2026@gmail.com';
+            let toastTimeout;
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', () => {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = emailAddress;
+                    tempInput.style.position = 'fixed';
+                    tempInput.style.left = '-9999px';
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+
+                    try {
+                        document.execCommand('copy');
+                        if (copyBtnLabel) {
+                            copyBtnLabel.textContent = 'コピー済';
+                        }
+                        // トースト表示
+                        if (toast) {
+                            toast.classList.remove('opacity-0', 'translate-y-3');
+                            toast.classList.add('opacity-100', 'translate-y-0');
+                            clearTimeout(toastTimeout);
+                            toastTimeout = setTimeout(() => {
+                                toast.classList.remove('opacity-100', 'translate-y-0');
+                                toast.classList.add('opacity-0', 'translate-y-3');
+                                if (copyBtnLabel) {
+                                    copyBtnLabel.textContent = 'コピー';
+                                }
+                            }, 2500);
+                        }
+                    } catch (err) {
+                        console.error('コピーに失敗しました:', err);
+                    } finally {
+                        document.body.removeChild(tempInput);
+                    }
+                });
+            }
+
+            // 3. スクロール連動フェードインアニメーション
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
